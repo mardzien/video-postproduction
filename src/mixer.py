@@ -166,7 +166,7 @@ class PostProductionMixer:
         self.sound_index = 0
 
         # Statistics
-        ring_hits = ball_hits = obstacle_hits = 0
+        collision_count = 0
 
         # Add sound for each collision event
         for event in events:
@@ -193,13 +193,7 @@ class PostProductionMixer:
                         sound_data[:samples_to_add] * event_volume
                     )
 
-                # Count by type
-                if event.collision_type == "ring":
-                    ring_hits += 1
-                elif event.collision_type == "ball":
-                    ball_hits += 1
-                else:
-                    obstacle_hits += 1
+                collision_count += 1
 
             except Exception as e:
                 print(f"⚠️ Error adding event at frame {event.frame_number}: {e}")
@@ -214,10 +208,7 @@ class PostProductionMixer:
         # Save to WAV
         self._save_audio_to_file(audio_buffer, output_path)
 
-        print(f"✅ Audio track created:")
-        print(f"   Ring hits: {ring_hits}")
-        print(f"   Ball hits: {ball_hits}")
-        print(f"   Obstacle hits: {obstacle_hits}")
+        print(f"✅ Audio track created: {collision_count} collision sounds")
 
         return str(output_path)
 
@@ -288,7 +279,6 @@ class PostProductionMixer:
                 CollisionEvent(
                     frame_number=event.frame_number,
                     timestamp=new_timestamp,
-                    collision_type=event.collision_type,
                     impact_intensity=event.impact_intensity,
                 )
             )
@@ -392,8 +382,15 @@ class PostProductionMixer:
         if not events:
             raise PostProductionError("No collision events found!")
 
-        # Get actual video duration
-        video_duration = self.get_video_duration(video_file)
+        # Get video duration - prefer JSON metadata (WebM files often have incorrect duration)
+        ffprobe_duration = self.get_video_duration(video_file)
+        
+        if recording_info.duration > 0 and ffprobe_duration < 0.1:
+            # WebM with broken duration metadata - use JSON value
+            video_duration = recording_info.duration
+            print(f"⚠️ Using duration from JSON metadata: {video_duration:.3f}s (ffprobe reported: {ffprobe_duration:.3f}s)")
+        else:
+            video_duration = ffprobe_duration
 
         # Frame-based synchronization if we have frame data
         if recording_info.total_frames > 0:

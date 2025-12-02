@@ -22,13 +22,13 @@ class CollisionEvent:
     - ball_position_x, ball_position_y
     - ball_velocity_x, ball_velocity_y  
     - ball_speed, distance_from_center
+    - collision_type (not needed for audio)
     
     These are ignored when loading for backwards compatibility.
     """
 
     frame_number: int  # Frame number for frame-based sync
     timestamp: float  # Timestamp in seconds (frame-based)
-    collision_type: str  # "ring", "ball", or "obstacle"
     impact_intensity: float  # Intensity 0.0-1.0 for volume control
 
     def to_dict(self) -> dict:
@@ -45,7 +45,6 @@ class CollisionEvent:
         return cls(
             frame_number=data["frame_number"],
             timestamp=data["timestamp"],
-            collision_type=data["collision_type"],
             impact_intensity=data["impact_intensity"],
         )
 

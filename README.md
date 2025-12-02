@@ -128,14 +128,13 @@ JSON file with collision events metadata:
     {
       "frame_number": 100,
       "timestamp": 1.666,
-      "collision_type": "ring",
       "impact_intensity": 0.85
     }
   ]
 }
 ```
 
-**Note:** This project uses a simplified JSON format with only 4 fields per event.
+**Note:** This project uses a simplified JSON format with only 3 fields per event.
 Full format from Balls game (with position/velocity data) is also supported - extra fields are ignored.
 
 ## Project Structure
