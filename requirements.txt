@@ -1,0 +1,17 @@
+# Video Postproduction Dependencies
+# ==================================
+
+# Core dependencies
+ffmpeg-python>=0.2.0    # FFmpeg bindings for video/audio processing
+numpy>=2.0.0            # Numerical operations for audio buffers
+scipy>=1.14.0           # WAV file I/O
+Pillow>=10.0.0          # Image processing for text overlay
+
+# Optional: Mido melody generator
+# mido>=1.3.0           # MIDI file creation
+# pygame>=2.5.0         # Audio playback for mido
+
+# Development (optional)
+# ruff>=0.4.0           # Linting
+# mypy>=1.10.0          # Type checking
+

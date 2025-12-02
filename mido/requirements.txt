@@ -1,0 +1,7 @@
+# Podstawowe zależności dla generacji MIDI
+mido>=1.3.0
+midi2audio>=0.1.1
+pygame>=2.5.2
+
+# Dodatkowe zależności dla optymalizacji
+numpy>=1.24.0  # Do przycinania ciszy z plików WAV

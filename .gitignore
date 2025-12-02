@@ -1,0 +1,43 @@
+# Virtual environments
+venv/
+mido/mido_env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+*.manifest
+*.spec
+
+# Logs
+*.log
+logs/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project-specific
+recordings/*
+!recordings/.gitkeep
+final_recordings/*
+!final_recordings/.gitkeep
+
+# Temporary files
+temp_audio_*.wav
+

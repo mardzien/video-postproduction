@@ -1,0 +1,80 @@
+[project]
+name = "video-postproduction"
+version = "1.0.0"
+description = "Video postproduction toolkit - audio mixing and text overlay"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [
+    {name = "mardzien"}
+]
+keywords = ["video", "postproduction", "audio", "overlay", "ffmpeg"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Multimedia :: Sound/Audio",
+]
+
+dependencies = [
+    "ffmpeg-python>=0.2.0",
+    "numpy>=2.0.0",
+    "scipy>=1.14.0",
+    "Pillow>=10.0.0",
+]
+
+[project.optional-dependencies]
+mido = [
+    "mido>=1.3.0",
+    "pygame>=2.5.0",
+]
+dev = [
+    "ruff>=0.4.0",
+    "mypy>=1.10.0",
+]
+
+[project.scripts]
+postprod = "src.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/mardzien/video-postproduction"
+Repository = "https://github.com/mardzien/video-postproduction"
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*", "mido*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # pyflakes
+    "I",    # isort
+    "B",    # flake8-bugbear
+    "UP",   # pyupgrade
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
