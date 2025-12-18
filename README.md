@@ -4,6 +4,7 @@ Standalone toolkit for video postproduction with audio mixing and text overlay.
 
 ## Features
 
+- **YouTube Shorts Templates** - Rapid production with predefined configurations
 - **Audio Mixing** - Add collision sounds to silent videos based on event metadata
 - **Text Overlay** - Add captions/banners with emoji support
 - **Frame-based Sync** - Precise audio synchronization using frame numbers
@@ -15,6 +16,9 @@ Standalone toolkit for video postproduction with audio mixing and text overlay.
 ```bash
 # Setup
 make install
+
+# YouTube Shorts with template (NEW! ⭐)
+make shorts INPUT=video.webm TEMPLATE=christmas
 
 # Mix audio from collision events
 make audio INPUT=video.mp4
@@ -49,7 +53,35 @@ make install
 
 ### CLI Commands
 
-The project provides a unified CLI with three main commands:
+The project provides a unified CLI with four main commands:
+
+#### YouTube Shorts (Template-based) ⭐ NEW
+
+Rapid shorts production using predefined templates:
+
+```bash
+# List available templates
+postprod shorts --list-templates
+
+# Use template
+postprod shorts --input video.webm --template christmas
+
+# With auto-numbering
+postprod shorts --input "recordings/*.webm" --template mario_challenge --auto-number
+
+# Override template values
+postprod shorts --input video.webm --template epic_imperial \
+    --text "Custom Text! 🔥" \
+    --volume 0.8
+```
+
+**Available templates:**
+- `christmas` - Christmas theme with jingle bells 🎄🔔
+- `mario_challenge` - Mario-themed with classic sounds 🍄🎮
+- `epic_imperial` - Epic mode with Imperial March ⚔️
+- `basic_minimal` - Clean minimal style 👀
+
+See [SHORTS_TEMPLATES.md](SHORTS_TEMPLATES.md) for complete guide.
 
 #### Audio Mixing
 
@@ -95,6 +127,12 @@ postprod full --input video.mp4 --text "Level 3" --sounds-dir sounds/
 ### Makefile Targets
 
 ```bash
+# Shorts (template-based) ⭐ NEW
+make shorts INPUT=video.webm TEMPLATE=christmas
+make list-templates
+make create-templates
+
+# Audio/Overlay
 make audio INPUT=video.mp4 [SOUNDS_DIR=sounds/]
 make overlay INPUT=video.mp4 TEXT="text"
 make postprocess INPUT=video.mp4 TEXT="text" [SOUNDS_DIR=sounds/]

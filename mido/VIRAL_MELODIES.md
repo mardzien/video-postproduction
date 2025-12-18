@@ -15,6 +15,9 @@ Moduł MIDO zawiera teraz **16 mega popularnych melodii**, które możesz wygene
 | 🎂 | `happy_birthday` | Happy Birthday | Klasyk! |
 | ⭐ | `twinkle` | Twinkle Twinkle Little Star | Dziecięcy hit! |
 | 🎄 | `jingle_bells` | Jingle Bells | Świąteczny hit! |
+| 🔔 | `carol_of_the_bells` | Carol of the Bells | Świąteczny klasyk! |
+| 🎄 | `deck_the_halls` | Deck the Halls | Radosna kolęda! |
+| 🎅 | `we_wish_you` | We Wish You a Merry Christmas | Życzenia! |
 | 🕵️ | `mission_impossible` | Mission Impossible | Szpiegowski hit! |
 | 🐾 | `pink_panther` | Pink Panther | Jazzowy hit! |
 | 🎼 | `fur_elise` | Für Elise (Beethoven) | Klasyczny hit! |
@@ -121,7 +124,7 @@ W `mido/config.py` dodaj do słownika `MELODIES`:
 
 ### 🎭 Dla różnych okazji:
 - **Urodziny**: `happy_birthday`
-- **Boże Narodzenie**: `jingle_bells`
+- **Boże Narodzenie**: `jingle_bells`, `carol_of_the_bells`, `deck_the_halls`, `we_wish_you`
 - **Wesela**: `canon_in_d`
 - **Romantyczne**: `titanic`
 - **Dziecięce**: `twinkle`

@@ -1,0 +1,24 @@
+audio:
+  sounds_dir: mido/melodies/imperial_march
+  volume: 0.8
+description: Epic theme with Imperial March
+name: epic_imperial
+output:
+  format: mp4
+  prefix: shorts_epic
+  quality: high
+overlay:
+  align: center
+  bar_color: '#1a1a1a'
+  bar_height: 120
+  bar_opacity: 0.4
+  color: white
+  font: null
+  font_file: null
+  font_size: 60
+  margin_top: 80
+  padding_x: 120
+  render_engine: pango_png
+  shadow: true
+  text: ⚔️ EPIC MODE ⚔️
+video_format: shorts

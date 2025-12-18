@@ -1,0 +1,28 @@
+audio:
+  sounds_dir: mido/melodies/jingle_bells
+  volume: 0.75
+description: Christmas-themed short with jingle bells
+name: christmas
+output:
+  format: mp4
+  prefix: shorts_christmas
+  quality: high
+overlay:
+  align: center
+  bar_color: '#1a472a'
+  bar_height: 120
+  bar_opacity: 0.0
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 380
+  padding_x: 120
+  render_engine: pango_png
+  shadow: true
+  text: Each ball needs 3 s to escape🎄\n🕐Will it escape in time?🕐
+video_format: shorts
+# Usefull emojis:  🔔🦌🎅🎄🎵🎶🎵🎶
+# Clock emoji: 🕐
+# Snowflake emoji: ❄️
+# Snowman emoji: ☃️

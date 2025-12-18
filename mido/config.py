@@ -123,12 +123,61 @@ MELODY_INSTRUMENTS = {
     "mario": 11,  # 🍄 Music Box - Dziecięcy, zabawkowy ale organiczny!
     "nokia": 80,  # 📱 Lead 1 (square) - Nostalgiczny elektroniczny!
     "tetris": 80,  # 🎮 Lead 1 (square) - Retro gaming!
+    "tokyo_drift": 81,  # 🏎️ Lead 2 (sawtooth) - Elektroniczny, agresywny synth!
     "jingle_bells": 14,  # 🎄 Tubular Bells - Świąteczny vibe!
+    "carol_of_the_bells": 14,  # 🔔 Tubular Bells - Świąteczny klasyk!
+    "deck_the_halls": 14,  # 🎄 Tubular Bells - Radosna kolęda!
+    "we_wish_you": 14,  # 🎅 Tubular Bells - Życzenia!
     # happy_birthday używa DEFAULT_INSTRUMENT (Piano)
 }
 
 # Specjalne długości nut dla konkretnych melodii - AUTENTYCZNY RYTM! 🎵
 MELODY_DURATIONS = {
+    "carol_of_the_bells": [
+        # Ostinato 4x (G#-F#-G#-E) - charakterystyczny szybki motyw
+        0.2, 0.15, 0.15, 0.5,
+        0.2, 0.15, 0.15, 0.5,
+        0.2, 0.15, 0.15, 0.5,
+        0.2, 0.15, 0.15, 0.5,
+        # Rozwinięcie (A-G#-F#-E) x2
+        0.3, 0.2, 0.2, 0.5,
+        0.3, 0.2, 0.2, 0.5,
+        # Kulminacja (B-A-G#-F#, B-A-G#-E)
+        0.3, 0.2, 0.2, 0.5,
+        0.3, 0.2, 0.2, 0.5,
+        # Zakończenie na tonice
+        1.0,
+    ],
+    "deck_the_halls": [
+        # G F E D C D E C (Deck the halls with boughs of holly)
+        0.6, 0.2, 0.4, 0.4, 0.4, 0.4, 0.4, 0.8,
+        # D E F D E D C Bb3 C (Fa la la la la, la la la la)
+        0.4, 0.2, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.8
+    ],
+    "jingle_bells": [
+        # Pierwsze przejście (klasyczne) - powtarzane frazy
+        0.4, 0.4, 0.8, 0.4, 0.4, 0.8,
+        0.4, 0.4, 0.4, 0.4, 0.8,
+        0.4, 0.4, 0.4, 0.4,
+        0.4, 0.4, 0.4, 0.4,
+        0.4, 0.4, 0.4, 0.4, 0.6,
+        # Drugie przejście (transpozycja o tercję w górę)
+        0.4, 0.4, 0.8, 0.4, 0.4, 0.8,
+        0.4, 0.4, 0.4, 0.4, 0.8,
+        0.4, 0.4, 0.4, 0.4,
+        0.4, 0.4, 0.4, 0.4,
+        0.4, 0.4, 0.4, 0.4, 1,
+    ],
+    "we_wish_you": [
+        # G C C D C B A A (We wish you a merry Christmas)
+        0.4, 0.4, 0.2, 0.2, 0.4, 0.4, 0.4, 0.4,
+        # A D D E D C B G (We wish you a merry Christmas)
+        0.4, 0.4, 0.2, 0.2, 0.4, 0.4, 0.4, 0.8,
+        # G E E E D C B A (Good tidings we bring) - NAPRAWIONE!
+        0.4, 0.4, 0.2, 0.2, 0.4, 0.4, 0.4, 0.4,
+        # G G A D B C (And a happy new year)
+        0.4, 0.4, 0.4, 0.4, 0.4, 0.8,
+    ],
     "imperial_march": [
         # G G G Eb Bb G Eb Bb G (pierwsza część)
         0.8,
@@ -226,6 +275,13 @@ MELODY_DURATIONS = {
         0.4,
         0.35,
         0.5,  # C C C C Bb D C (zakończenie)
+    ],
+    "tokyo_drift": [
+        # 🏎️ Agresywny synth riff - pulsujący, driftowy vibe!
+        0.4, 0.4, 0.2, 0.2, 0.2,
+        0.4, 0.4, 0.2, 0.2, 0.2,
+        0.4, 0.4, 0.2, 0.2, 0.2,
+        0.4, 0.4, 0.2, 0.2, 0.2
     ],
     # Inne melodie używają DEFAULT_NOTE_DURATION
 }
@@ -356,10 +412,49 @@ MELODIES = {
     "jingle_bells": [
         "E", "E", "E",
         "E", "E", "E",
-        "E", "G", "C", "D", "E",
+        "E", "G", "C", "D", "E", 
         "F", "F", "F", "F",
         "F", "E", "E", "E",
-        "D", "D", "E", "D", "G"
+        "D", "D", "E", "D", "G",
+        "E", "E", "E",
+        "E", "E", "E",
+        "E", "G", "C", "D", "E", 
+        "F", "F", "F", "F",
+        "F", "E", "E", "E",
+        "G", "G", "F", "D", "C",
+    ],
+    # 🔔 CAROL OF THE BELLS (Shchedryk) - Ukraińska kolęda z domeny publicznej!
+    # Oparte na oryginalnym 4-nutowym ostinato Mykoły Leontowycha
+    "carol_of_the_bells": [
+        # Ostinato 4x (charakterystyczny motyw opadający)
+        "G#", "F#", "G#", "E",
+        "G#", "F#", "G#", "E",
+        "G#", "F#", "G#", "E",
+        "G#", "F#", "G#", "E",
+        # Rozwinięcie melodii - wznoszenie
+        "A", "G#", "F#", "E",
+        "A", "G#", "F#", "E",
+        # Kulminacja
+        "B", "A", "G#", "F#",
+        "B", "A", "G#", "E",
+        # Zakończenie na tonice
+        "E",
+    ],
+    # 🎄 DECK THE HALLS - Radosna kolęda!
+    "deck_the_halls": [
+        "G", "F", "E", "D", "C", "D", "E", "C",
+        "D", "E", "F", "D", "E", "D", "C", "Bb3", "C"
+    ],
+    # 🎅 WE WISH YOU A MERRY CHRISTMAS - Życzenia!
+    "we_wish_you": [
+        # G C C D C B A A (We wish you a merry Christmas)
+        "G", "C", "C", "D", "C", "B", "A", "A",
+        # A D D E D C B G (We wish you a merry Christmas)
+        "A", "D", "D", "E", "D", "C", "B", "G",
+        # G E E E D C B A (Good tidings we bring) - NAPRAWIONE! Było F zamiast E
+        "G", "E", "E", "E", "D", "C", "B", "A",
+        # G G A D B C (And a happy new year)
+        "G", "G", "A", "D", "B", "C"
     ],
     # ⭐ TWINKLE TWINKLE LITTLE STAR - Dziecięcy hit!
     "twinkle": [
@@ -391,5 +486,13 @@ MELODIES = {
         "E",
         "E",
         "D",
+    ],
+    # 🏎️ TOKYO DRIFT
+    "tokyo_drift": [
+        "Bb", "B", "Eb","Bb","Bb",
+        "Bb", "B", "Eb","Bb","Bb",
+        "Bb", "B", "Eb","F","F",
+        "Ab", "F#", "F", "Eb", "Eb"
+        
     ],
 }

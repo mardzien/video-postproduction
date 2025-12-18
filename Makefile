@@ -97,6 +97,33 @@ postprocess: env
 full: postprocess
 
 # ============================================================================
+# SHORTS - TEMPLATE-BASED PRODUCTION
+# ============================================================================
+
+.PHONY: shorts
+shorts: env
+	@if [ -z "$(INPUT)" ]; then echo "❌ ERROR: INPUT required. Usage: make shorts INPUT=video.mp4 TEMPLATE=christmas"; exit 1; fi
+	@if [ -z "$(TEMPLATE)" ]; then echo "❌ ERROR: TEMPLATE required. Usage: make shorts INPUT=video.mp4 TEMPLATE=christmas"; exit 1; fi
+	$(PY) -m src.cli shorts \
+		--input "$(INPUT)" \
+		--template "$(TEMPLATE)" \
+		$(if $(OUTPUT),--output "$(OUTPUT)",) \
+		$(if $(AUTO_NUMBER),--auto-number,) \
+		$(if $(TEXT),--text "$(TEXT)",) \
+		$(if $(SOUNDS_DIR_OVERRIDE),--sounds-dir "$(SOUNDS_DIR_OVERRIDE)",) \
+		$(if $(VOLUME_OVERRIDE),--volume $(VOLUME_OVERRIDE),) \
+		$(if $(CLEANUP),--cleanup,)
+
+.PHONY: list-templates
+list-templates: env
+	@$(PY) -m src.cli shorts --list-templates
+
+.PHONY: create-templates
+create-templates: env
+	@echo "🎨 Creating example templates..."
+	@$(PY) -c "from src.templates import TemplateManager; TemplateManager().create_example_templates()"
+
+# ============================================================================
 # MIDO - MELODY GENERATION
 # ============================================================================
 
@@ -164,6 +191,13 @@ help:
 	@echo ""
 	@echo "  make postprocess INPUT=video.mp4 TEXT=\"Hello\" [SOUNDS_DIR=sounds/]"
 	@echo "                       - Full postproduction (audio + overlay)"
+	@echo ""
+	@echo "Shorts (template-based):"
+	@echo "  make shorts INPUT=video.mp4 TEMPLATE=christmas"
+	@echo "                       - Template-based shorts production"
+	@echo "  make list-templates  - Show available templates"
+	@echo "  make create-templates"
+	@echo "                       - Create example templates"
 	@echo ""
 	@echo "Mido (melody generator):"
 	@echo "  make generate-melody MELODY=imperial_march"

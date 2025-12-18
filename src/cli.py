@@ -28,6 +28,7 @@ if str(SCRIPT_DIR.parent) not in sys.path:
 
 from src.mixer import PostProductionMixer, PostProductionError
 from src.overlay import OverlayConfig, OverlayError, process_overlay
+from src.templates import TemplateManager, TemplateError, generate_output_filename
 
 
 def find_events_file(video_path: Path) -> Path:
@@ -183,6 +184,139 @@ def cmd_overlay(args: argparse.Namespace) -> int:
         return 0
         
     except OverlayError as e:
+        print(f"❌ Error: {e}", file=sys.stderr)
+        return 1
+    except Exception as e:
+        print(f"❌ Unexpected error: {e}", file=sys.stderr)
+        return 1
+
+
+# ============================================================================
+# SHORTS COMMAND
+# ============================================================================
+
+def cmd_shorts(args: argparse.Namespace) -> int:
+    """Handle 'shorts' command - template-based shorts production."""
+    try:
+        # Initialize template manager
+        template_mgr = TemplateManager()
+        
+        # List templates if requested
+        if args.list_templates:
+            templates = template_mgr.list_templates()
+            print("\n📋 Available templates:\n")
+            if templates:
+                for name, desc in templates:
+                    print(f"  • {name:25s} - {desc}")
+            else:
+                print("  (no templates found)")
+            print("\n💡 Use: postprod shorts --template <name> --input video.mp4\n")
+            return 0
+        
+        # Load template
+        if not args.template:
+            print("❌ ERROR: --template required (or use --list-templates)", file=sys.stderr)
+            return 1
+        
+        try:
+            template = template_mgr.load_template(args.template)
+        except TemplateError as e:
+            print(f"❌ {e}", file=sys.stderr)
+            return 1
+        
+        print(f"📋 Using template: {template.name}")
+        print(f"   Description: {template.description}")
+        
+        # Apply overrides
+        overrides = {}
+        if args.text:
+            overrides.setdefault("overlay", {})["text"] = args.text
+        if args.sounds_dir:
+            overrides.setdefault("audio", {})["sounds_dir"] = args.sounds_dir
+        if args.volume is not None:
+            overrides.setdefault("audio", {})["volume"] = args.volume
+        
+        if overrides:
+            template = template.merge_overrides(overrides)
+        
+        # Resolve input files
+        inputs = resolve_input(args.input)
+        
+        # Initialize mixer
+        mixer = PostProductionMixer(
+            sounds_folder=template.audio.sounds_dir,
+            volume=template.audio.volume,
+        )
+        
+        # Create overlay config from template
+        overlay_config = OverlayConfig(
+            text=template.overlay.text,
+            font=template.overlay.font,
+            font_file=template.overlay.font_file,
+            font_size=template.overlay.font_size,
+            color=template.overlay.color,
+            bar_color=template.overlay.bar_color,
+            bar_opacity=template.overlay.bar_opacity,
+            margin_top=template.overlay.margin_top,
+            bar_height=template.overlay.bar_height,
+            padding_x=template.overlay.padding_x,
+            align=template.overlay.align,
+            shadow=template.overlay.shadow,
+            render_engine=template.overlay.render_engine,
+        )
+        
+        for video_path in inputs:
+            print(f"\n📽️ Processing: {video_path}")
+            
+            # Find events file
+            try:
+                events_path = find_events_file(video_path)
+            except FileNotFoundError as e:
+                print(f"⚠️ {e}")
+                continue
+            
+            # Determine output path
+            if args.output and len(inputs) == 1:
+                final_output = Path(args.output)
+            else:
+                final_output = generate_output_filename(
+                    template,
+                    video_path,
+                    auto_number=args.auto_number,
+                )
+            
+            # Step 1: Mix audio -> temporary file
+            temp_output = default_output_path(video_path, "_temp")
+            mixed_path = mixer.process_recording(
+                video_file=video_path,
+                events_file=events_path,
+                output_file=temp_output,
+                cleanup_temp_files=False,
+            )
+            
+            # Step 2: Add overlay
+            process_overlay(mixed_path, final_output, overlay_config)
+            
+            # Cleanup intermediate file
+            try:
+                Path(mixed_path).unlink()
+            except Exception:
+                pass
+            
+            # Cleanup source files if requested
+            if args.cleanup:
+                for f in [video_path, events_path]:
+                    try:
+                        f.unlink()
+                        print(f"   🧹 Deleted: {f.name}")
+                    except Exception:
+                        pass
+        
+        mixer.cleanup()
+        print(f"\n✅ Shorts production complete!")
+        return 0
+        
+    except (PostProductionError, OverlayError, TemplateError) as e:
         print(f"❌ Error: {e}", file=sys.stderr)
         return 1
     except Exception as e:
@@ -354,6 +488,51 @@ def create_parser() -> argparse.ArgumentParser:
         default="pango_png",
     )
     overlay_parser.set_defaults(func=cmd_overlay, shadow=True)
+    
+    # ========== SHORTS COMMAND ==========
+    shorts_parser = subparsers.add_parser(
+        "shorts",
+        help="Template-based YouTube Shorts production",
+        description="Complete postproduction using predefined templates",
+    )
+    shorts_parser.add_argument(
+        "--input", "-i",
+        help="Input video file or glob pattern",
+    )
+    shorts_parser.add_argument(
+        "--template", "-t",
+        help="Template name (use --list-templates to see available)",
+    )
+    shorts_parser.add_argument(
+        "--list-templates", "-l", action="store_true",
+        help="List available templates and exit",
+    )
+    shorts_parser.add_argument(
+        "--output", "-o",
+        help="Output file (auto-generated if omitted)",
+    )
+    shorts_parser.add_argument(
+        "--auto-number", "-n", action="store_true",
+        help="Auto-number output files (shorts_001, shorts_002, etc.)",
+    )
+    # Override options
+    shorts_parser.add_argument(
+        "--text",
+        help="Override template text",
+    )
+    shorts_parser.add_argument(
+        "--sounds-dir", "-s",
+        help="Override template sounds directory",
+    )
+    shorts_parser.add_argument(
+        "--volume", type=float,
+        help="Override template volume",
+    )
+    shorts_parser.add_argument(
+        "--cleanup", action="store_true",
+        help="Delete source files after processing",
+    )
+    shorts_parser.set_defaults(func=cmd_shorts)
     
     # ========== FULL COMMAND ==========
     full_parser = subparsers.add_parser(
