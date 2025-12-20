@@ -114,6 +114,13 @@ NOTE_MAPPING = {
     "Bb": 70,  # Bb4 (same as A#)
     "Bb3": 58,  # Bb3 - niższa oktawa dla basów!
     "B": 71,  # B4
+    # Wyższa oktawa (5)
+    "C5": 72,
+    "D5": 74,
+    "E5": 76,
+    "F5": 77,
+    "G5": 79,
+    "A5": 81,
 }
 
 # Specjalne instrumenty dla konkretnych melodii - NATURALNE BRZMIENIA! 🎵
@@ -123,7 +130,9 @@ MELODY_INSTRUMENTS = {
     "mario": 11,  # 🍄 Music Box - Dziecięcy, zabawkowy ale organiczny!
     "nokia": 80,  # 📱 Lead 1 (square) - Nostalgiczny elektroniczny!
     "tetris": 80,  # 🎮 Lead 1 (square) - Retro gaming!
-    "tokyo_drift": 81,  # 🏎️ Lead 2 (sawtooth) - Elektroniczny, agresywny synth!
+    "tokyo_drift": 115,  # 🏎️ Woodblock - Charakterystyczny perkusyjny dźwięk!
+    "megalovania": 30,  # 🎸 Overdriven Guitar - Epicka moc!
+    "gravity_falls": 79,  # 😗 Whistle - Kultowe gwizdanie!
     "jingle_bells": 14,  # 🎄 Tubular Bells - Świąteczny vibe!
     "carol_of_the_bells": 14,  # 🔔 Tubular Bells - Świąteczny klasyk!
     "deck_the_halls": 14,  # 🎄 Tubular Bells - Radosna kolęda!
@@ -151,7 +160,7 @@ MELODY_DURATIONS = {
     "deck_the_halls": [
         # G F E D C D E C (Deck the halls with boughs of holly)
         0.6, 0.2, 0.4, 0.4, 0.4, 0.4, 0.4, 0.8,
-        # D E F D E D C Bb3 C (Fa la la la la, la la la la)
+        # D E F D E D C B C (Fa la la la la, la la la la) - NAPRAWIONE: B zamiast Bb3
         0.4, 0.2, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.8
     ],
     "jingle_bells": [
@@ -277,11 +286,31 @@ MELODY_DURATIONS = {
         0.5,  # C C C C Bb D C (zakończenie)
     ],
     "tokyo_drift": [
-        # 🏎️ Agresywny synth riff - pulsujący, driftowy vibe!
-        0.4, 0.4, 0.2, 0.2, 0.2,
-        0.4, 0.4, 0.2, 0.2, 0.2,
-        0.4, 0.4, 0.2, 0.2, 0.2,
-        0.4, 0.4, 0.2, 0.2, 0.2
+        # 🏎️ Agresywny synth riff - dynamiczny rytm!
+        # Linia 1 - intro z akcentem na pierwszej nucie
+        0.5, 0.3, 0.4, 0.2, 0.3,
+        # Linia 2 - szybsza, bardziej napięta
+        0.4, 0.3, 0.3, 0.2, 0.3,
+        # Linia 3 - build-up z dłuższymi końcówkami
+        0.4, 0.3, 0.3, 0.4, 0.4,
+        # Linia 4 - zakończenie z mocnym akcentem
+        0.5, 0.3, 0.4, 0.5, 0.6,
+    ],
+    "megalovania": [
+        # Intro riff: D D D5 A Ab G F D F G
+        0.15, 0.15, 0.3, 0.45, 0.4, 0.35, 0.35, 0.15, 0.15, 0.15,
+        # Część 2 (C): C C D5 A Ab G F D F G
+        0.15, 0.15, 0.3, 0.45, 0.4, 0.35, 0.35, 0.15, 0.15, 0.15,
+        # Część 3 (B): B B D5 A Ab G F D F G
+        0.15, 0.15, 0.3, 0.45, 0.4, 0.35, 0.35, 0.15, 0.15, 0.15,
+        # Część 4 (Bb): Bb Bb D5 A Ab G F D F G
+        0.15, 0.15, 0.3, 0.45, 0.4, 0.35, 0.35, 0.15, 0.15, 0.15,
+    ],
+    "gravity_falls": [
+        # Phrase 1: D E F A G A C D (szybkie arpeggio w górę)
+        0.2, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.8,
+        # Phrase 2: E F E C D (odpowiedź)
+        0.2, 0.2, 0.2, 0.2, 1.0,
     ],
     # Inne melodie używają DEFAULT_NOTE_DURATION
 }
@@ -442,8 +471,10 @@ MELODIES = {
     ],
     # 🎄 DECK THE HALLS - Radosna kolęda!
     "deck_the_halls": [
+        # G F E D C D E C (Deck the halls with boughs of holly)
         "G", "F", "E", "D", "C", "D", "E", "C",
-        "D", "E", "F", "D", "E", "D", "C", "Bb3", "C"
+        # D E F D E D C B C (Fa la la la la, la la la la)
+        "D", "E", "F", "D", "E", "D", "C", "B", "C"
     ],
     # 🎅 WE WISH YOU A MERRY CHRISTMAS - Życzenia!
     "we_wish_you": [
@@ -487,12 +518,33 @@ MELODIES = {
         "E",
         "D",
     ],
-    # 🏎️ TOKYO DRIFT
+    # 🏎️ TOKYO DRIFT - Charakterystyczny riff (Eb minor)
     "tokyo_drift": [
-        "Bb", "B", "Eb","Bb","Bb",
-        "Bb", "B", "Eb","Bb","Bb",
-        "Bb", "B", "Eb","F","F",
-        "Ab", "F#", "F", "Eb", "Eb"
-        
+        # Linia 1 - motyw główny (Eb Eb Gb Eb Eb)
+        "Eb", "Eb", "Gb", "Eb", "Eb",
+        # Linia 2 - powtórzenie
+        "Eb", "Eb", "Gb", "Eb", "Eb",
+        # Linia 3 - wariacja (Eb Eb Gb Ab Ab)
+        "Eb", "Eb", "Gb", "Ab", "Ab",
+        # Linia 4 - zakończenie opadające (B Bb Ab Gb Gb)
+        "B", "Bb", "Ab", "Gb", "Gb",
+    ],
+    # 💀 MEGALOVANIA (Undertale) - Pełny cykl 4-taktowy!
+    "megalovania": [
+        # Część 1 (D)
+        "D", "D", "D5", "A", "Ab", "G", "F", "D", "F", "G",
+        # Część 2 (C)
+        "C", "C", "D5", "A", "Ab", "G", "F", "D", "F", "G",
+        # Część 3 (B)
+        "B", "B", "D5", "A", "Ab", "G", "F", "D", "F", "G",
+        # Część 4 (Bb)
+        "Bb", "Bb", "D5", "A", "Ab", "G", "F", "D", "F", "G",
+    ],
+    # 🌲 GRAVITY FALLS - Główny motyw gwizdany
+    "gravity_falls": [
+        # Fraza 1 (wznosząca)
+        "D5", "E5", "F5", "A5", "G5", "A5", "C5", "D5",
+        # Fraza 2 (opadająca)
+        "E5", "F5", "E5", "C5", "D5"
     ],
 }
