@@ -114,13 +114,30 @@ NOTE_MAPPING = {
     "Bb": 70,  # Bb4 (same as A#)
     "Bb3": 58,  # Bb3 - niższa oktawa dla basów!
     "B": 71,  # B4
+    # Niższa oktawa (3)
+    "E3": 52,
+    "F#3": 54,
+    "G3": 55,
+    "G#3": 56,
+    "A3": 57,
+    "Bb3": 58,
+    "B3": 59,
     # Wyższa oktawa (5)
     "C5": 72,
+    "C#5": 73, "Db5": 73,
     "D5": 74,
+    "D#5": 75, "Eb5": 75,
     "E5": 76,
     "F5": 77,
+    "F#5": 78, "Gb5": 78,
     "G5": 79,
+    "G#5": 80, "Ab5": 80,
     "A5": 81,
+    "A#5": 82, "Bb5": 82,
+    "B5": 83,
+    # Oktawa 6
+    "C6": 84,
+    "D6": 86,
 }
 
 # Specjalne instrumenty dla konkretnych melodii - NATURALNE BRZMIENIA! 🎵
@@ -130,38 +147,49 @@ MELODY_INSTRUMENTS = {
     "mario": 11,  # 🍄 Music Box - Dziecięcy, zabawkowy ale organiczny!
     "nokia": 80,  # 📱 Lead 1 (square) - Nostalgiczny elektroniczny!
     "tetris": 80,  # 🎮 Lead 1 (square) - Retro gaming!
-    "tokyo_drift": 115,  # 🏎️ Woodblock - Charakterystyczny perkusyjny dźwięk!
+    "tokyo_drift": 81,  # 🏎️ Lead 2 (Sawtooth) - Agresywny synth drift!
     "megalovania": 30,  # 🎸 Overdriven Guitar - Epicka moc!
-    "gravity_falls": 79,  # 😗 Whistle - Kultowe gwizdanie!
+    "gravity_falls": 78,  # 😗 Whistle - Prawdziwe gwizdanie (78)!
     "jingle_bells": 14,  # 🎄 Tubular Bells - Świąteczny vibe!
     "carol_of_the_bells": 14,  # 🔔 Tubular Bells - Świąteczny klasyk!
     "deck_the_halls": 14,  # 🎄 Tubular Bells - Radosna kolęda!
     "we_wish_you": 14,  # 🎅 Tubular Bells - Życzenia!
+    "feliz_navidad": 56,  # 🎺 Trumpet - Latynoski klimat!
+    "avicii_levels": 81,  # 🎧 Lead 2 (Sawtooth) - EDM vibe!
     # happy_birthday używa DEFAULT_INSTRUMENT (Piano)
 }
 
 # Specjalne długości nut dla konkretnych melodii - AUTENTYCZNY RYTM! 🎵
 MELODY_DURATIONS = {
+    "avicii_levels": [
+        # C# (long) - 1.0s
+        1.0, 
+        # C# B G# (fast)
+        0.2, 0.2, 0.2,
+        # F# E F# G# (syncopated)
+        0.3, 0.3, 0.3, 0.3,
+        # C# (middle long)
+        0.8,
+        # C# B G# (fast)
+        0.2, 0.2, 0.2,
+        # F# E (ending)
+        0.4, 0.8
+    ],
     "carol_of_the_bells": [
-        # Ostinato 4x (G#-F#-G#-E) - charakterystyczny szybki motyw
-        0.2, 0.15, 0.15, 0.5,
-        0.2, 0.15, 0.15, 0.5,
-        0.2, 0.15, 0.15, 0.5,
-        0.2, 0.15, 0.15, 0.5,
-        # Rozwinięcie (A-G#-F#-E) x2
-        0.3, 0.2, 0.2, 0.5,
-        0.3, 0.2, 0.2, 0.5,
-        # Kulminacja (B-A-G#-F#, B-A-G#-E)
-        0.3, 0.2, 0.2, 0.5,
-        0.3, 0.2, 0.2, 0.5,
-        # Zakończenie na tonice
-        1.0,
+        # Ostinato 4x (G#-F#-G#-E) - rytm 3/4 (ćwierć, ósemka, ósemka, ćwierć)
+        0.4, 0.2, 0.2, 0.4,
+        0.4, 0.2, 0.2, 0.4,
+        0.4, 0.2, 0.2, 0.4,
+        0.4, 0.2, 0.2, 0.4,
+        # Zakończenie (Długie nuty)
+        0.8, 0.8, 0.8, 0.8,
+        1.2,
     ],
     "deck_the_halls": [
-        # G F E D C D E C (Deck the halls with boughs of holly)
-        0.6, 0.2, 0.4, 0.4, 0.4, 0.4, 0.4, 0.8,
-        # D E F D E D C B C (Fa la la la la, la la la la) - NAPRAWIONE: B zamiast Bb3
-        0.4, 0.2, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.8
+        # C Bb A G F G A F (Deck the halls)
+        0.5, 0.2, 0.35, 0.35, 0.35, 0.2, 0.35, 0.5,
+        # G A Bb G A G F E F (Fa la la la la, la la la la)
+        0.25, 0.25, 0.35, 0.25, 0.25, 0.25, 0.25, 0.25, 0.8,
     ],
     "jingle_bells": [
         # Pierwsze przejście (klasyczne) - powtarzane frazy
@@ -170,7 +198,7 @@ MELODY_DURATIONS = {
         0.4, 0.4, 0.4, 0.4,
         0.4, 0.4, 0.4, 0.4,
         0.4, 0.4, 0.4, 0.4, 0.6,
-        # Drugie przejście (transpozycja o tercję w górę)
+        # Drugie przejście
         0.4, 0.4, 0.8, 0.4, 0.4, 0.8,
         0.4, 0.4, 0.4, 0.4, 0.8,
         0.4, 0.4, 0.4, 0.4,
@@ -182,32 +210,20 @@ MELODY_DURATIONS = {
         0.4, 0.4, 0.2, 0.2, 0.4, 0.4, 0.4, 0.4,
         # A D D E D C B G (We wish you a merry Christmas)
         0.4, 0.4, 0.2, 0.2, 0.4, 0.4, 0.4, 0.8,
-        # G E E E D C B A (Good tidings we bring) - NAPRAWIONE!
+        # G E E F E D C B (Good tidings we bring)
         0.4, 0.4, 0.2, 0.2, 0.4, 0.4, 0.4, 0.4,
         # G G A D B C (And a happy new year)
         0.4, 0.4, 0.4, 0.4, 0.4, 0.8,
     ],
     "imperial_march": [
-        # G G G Eb Bb G Eb Bb G (pierwsza część)
-        0.8,
-        0.8,
-        0.8,
-        0.3,
-        0.5,
-        0.8,
-        0.3,
-        0.5,
-        1.2,  # Długie G na początku i końcu
-        # D D D Eb Bb F# Eb Bb G (druga część)
-        0.8,
-        0.8,
-        0.8,
-        0.3,
-        0.5,
-        0.6,
-        0.3,
-        0.5,
-        1.2,  # Podobny wzorzec
+        # Pierwsza część - główny motyw (powtórzony 2x)
+        0.8, 0.8, 0.8, 0.3, 0.5, 0.8, 0.3, 0.5, 1.2,
+        0.8, 0.8, 0.8, 0.3, 0.5, 0.8, 0.3, 0.5, 1.2,
+        # Druga część - odpowiedź (powtórzona 2x)
+        0.8, 0.8, 0.8, 0.3, 0.5, 0.6, 0.3, 0.5, 1.2,
+        0.8, 0.8, 0.8, 0.3, 0.5, 0.6, 0.3, 0.5, 1.2,
+        # Kulminacja - powrót głównego motywu
+        0.8, 0.8, 0.8, 0.3, 0.5, 0.8, 0.3, 0.5, 2.0,
     ],
     "mario": [
         # Pierwsza część - główny motyw (7 nut)
@@ -286,15 +302,13 @@ MELODY_DURATIONS = {
         0.5,  # C C C C Bb D C (zakończenie)
     ],
     "tokyo_drift": [
-        # 🏎️ Agresywny synth riff - dynamiczny rytm!
-        # Linia 1 - intro z akcentem na pierwszej nucie
-        0.5, 0.3, 0.4, 0.2, 0.3,
-        # Linia 2 - szybsza, bardziej napięta
-        0.4, 0.3, 0.3, 0.2, 0.3,
-        # Linia 3 - build-up z dłuższymi końcówkami
-        0.4, 0.3, 0.3, 0.4, 0.4,
-        # Linia 4 - zakończenie z mocnym akcentem
-        0.5, 0.3, 0.4, 0.5, 0.6,
+        # 🏎️ Charakterystyczny Teriyaki Boyz riff - agresywny synth!
+        # Główny riff (powtórzony 3x dla intensywności)
+        0.3, 0.15, 0.3, 0.15, 0.3, 0.15, 0.3, 0.15, 0.8,
+        0.3, 0.15, 0.3, 0.15, 0.3, 0.15, 0.3, 0.15, 0.8,
+        0.3, 0.15, 0.3, 0.15, 0.3, 0.15, 0.3, 0.15, 1.2,
+        # Build-up z opadaniem
+        0.4, 0.2, 0.4, 0.2, 0.4, 0.4, 0.6,
     ],
     "megalovania": [
         # Intro riff: D D D5 A Ab G F D F G
@@ -312,7 +326,16 @@ MELODY_DURATIONS = {
         # Phrase 2: E F E C D (odpowiedź)
         0.2, 0.2, 0.2, 0.2, 1.0,
     ],
-    # Inne melodie używają DEFAULT_NOTE_DURATION
+    "feliz_navidad": [
+        # G C B C A (Fe-liz Na-vi-dad)
+        0.2, 0.4, 0.2, 0.2, 0.8,
+        # G D C D B (Fe-liz Na-vi-dad)
+        0.2, 0.4, 0.2, 0.2, 0.8,
+        # G C B C A (Fe-liz Na-vi-dad)
+        0.2, 0.4, 0.2, 0.2, 0.8,
+        # F F G F E D C (Pros-pe-ro A-ño y Fe-li-ci-dad)
+        0.2, 0.2, 0.2, 0.2, 0.4, 0.4, 0.8,
+    ],
 }
 
 # Definicje melodii - TYLKO NAJLEPSZE! 🎵
@@ -345,26 +368,16 @@ MELODIES = {
         "D",
         "C",
     ],
-    # 🎬 IMPERIAL MARCH (Star Wars) - Epicki!
+    # 🎬 IMPERIAL MARCH (Star Wars) - Epicki i rozszerzony!
     "imperial_march": [
-        "G",
-        "G",
-        "G",
-        "Eb",
-        "Bb",
-        "G",
-        "Eb",
-        "Bb",
-        "G",
-        "D",
-        "D",
-        "D",
-        "Eb",
-        "Bb",
-        "F#",
-        "Eb",
-        "Bb",
-        "G",
+        # Pierwsza część - główny motyw (powtórzony 2x)
+        "G", "G", "G", "Eb", "Bb", "G", "Eb", "Bb", "G",
+        "G", "G", "G", "Eb", "Bb", "G", "Eb", "Bb", "G",
+        # Druga część - odpowiedź (powtórzona 2x)
+        "D", "D", "D", "Eb", "Bb", "F#", "Eb", "Bb", "G",
+        "D", "D", "D", "Eb", "Bb", "F#", "Eb", "Bb", "G",
+        # Kulminacja - powrót głównego motywu z wyższą dynamiką
+        "G", "G", "G", "Eb", "Bb", "G", "Eb", "Bb", "G",
     ],
     # 🍄 SUPER MARIO BROS - Legendarny!
     "mario": [
@@ -452,40 +465,35 @@ MELODIES = {
         "F", "E", "E", "E",
         "G", "G", "F", "D", "C",
     ],
-    # 🔔 CAROL OF THE BELLS (Shchedryk) - Ukraińska kolęda z domeny publicznej!
-    # Oparte na oryginalnym 4-nutowym ostinato Mykoły Leontowycha
+    # 🔔 CAROL OF THE BELLS (Shchedryk) - Wersja 5. oktawa (dzwonkowa)
     "carol_of_the_bells": [
         # Ostinato 4x (charakterystyczny motyw opadający)
-        "G#", "F#", "G#", "E",
-        "G#", "F#", "G#", "E",
-        "G#", "F#", "G#", "E",
-        "G#", "F#", "G#", "E",
-        # Rozwinięcie melodii - wznoszenie
-        "A", "G#", "F#", "E",
-        "A", "G#", "F#", "E",
-        # Kulminacja
-        "B", "A", "G#", "F#",
-        "B", "A", "G#", "E",
-        # Zakończenie na tonice
-        "E",
+        "G#5", "F#5", "G#5", "E5",
+        "G#5", "F#5", "G#5", "E5",
+        "G#5", "F#5", "G#5", "E5",
+        "G#5", "F#5", "G#5", "E5",
+        # Rozwinięcie proste (Ding Dong)
+        "B5", "G#5", "B5", "G#5",
+        # Zakończenie
+        "E5",
     ],
-    # 🎄 DECK THE HALLS - Radosna kolęda!
+    # 🎄 DECK THE HALLS - Kompletna fraza w F-dur (17 nut)
     "deck_the_halls": [
-        # G F E D C D E C (Deck the halls with boughs of holly)
-        "G", "F", "E", "D", "C", "D", "E", "C",
-        # D E F D E D C B C (Fa la la la la, la la la la)
-        "D", "E", "F", "D", "E", "D", "C", "B", "C"
+        # C Bb A G F G A F (Deck the halls with boughs of holly)
+        "C5", "Bb", "A", "G", "F", "G", "A", "F",
+        # G A Bb G A G F E F (Fa la la la la, la la la la)
+        "G", "A", "Bb", "G", "A", "G", "F", "E", "F"
     ],
-    # 🎅 WE WISH YOU A MERRY CHRISTMAS - Życzenia!
+    # 🎅 WE WISH YOU A MERRY CHRISTMAS - Poprawiona melodia
     "we_wish_you": [
         # G C C D C B A A (We wish you a merry Christmas)
-        "G", "C", "C", "D", "C", "B", "A", "A",
+        "G", "C5", "C5", "D5", "C5", "B", "A", "A",
         # A D D E D C B G (We wish you a merry Christmas)
-        "A", "D", "D", "E", "D", "C", "B", "G",
-        # G E E E D C B A (Good tidings we bring) - NAPRAWIONE! Było F zamiast E
-        "G", "E", "E", "E", "D", "C", "B", "A",
+        "A", "D5", "D5", "E5", "D5", "C5", "B", "G",
+        # G E E F E D C B (Good tidings we bring)
+        "G", "E5", "E5", "F5", "E5", "D5", "C5", "B",
         # G G A D B C (And a happy new year)
-        "G", "G", "A", "D", "B", "C"
+        "G", "G", "A", "D5", "B", "C5"
     ],
     # ⭐ TWINKLE TWINKLE LITTLE STAR - Dziecięcy hit!
     "twinkle": [
@@ -518,16 +526,14 @@ MELODIES = {
         "E",
         "D",
     ],
-    # 🏎️ TOKYO DRIFT - Charakterystyczny riff (Eb minor)
+    # 🏎️ TOKYO DRIFT - Oryginalny Teriyaki Boyz riff!
     "tokyo_drift": [
-        # Linia 1 - motyw główny (Eb Eb Gb Eb Eb)
-        "Eb", "Eb", "Gb", "Eb", "Eb",
-        # Linia 2 - powtórzenie
-        "Eb", "Eb", "Gb", "Eb", "Eb",
-        # Linia 3 - wariacja (Eb Eb Gb Ab Ab)
-        "Eb", "Eb", "Gb", "Ab", "Ab",
-        # Linia 4 - zakończenie opadające (B Bb Ab Gb Gb)
-        "B", "Bb", "Ab", "Gb", "Gb",
+        # Główny riff - agresywny synth (powtórzony 3x)
+        "F#", "F#", "F#", "F#", "F#", "F#", "F#", "F#", "D",
+        "F#", "F#", "F#", "F#", "F#", "F#", "F#", "F#", "D",
+        "F#", "F#", "F#", "F#", "F#", "F#", "F#", "F#", "D",
+        # Build-up z opadaniem - charakterystyczne zakończenie
+        "B", "Bb", "Ab", "Gb", "F#", "Eb", "D",
     ],
     # 💀 MEGALOVANIA (Undertale) - Pełny cykl 4-taktowy!
     "megalovania": [
@@ -543,8 +549,28 @@ MELODIES = {
     # 🌲 GRAVITY FALLS - Główny motyw gwizdany
     "gravity_falls": [
         # Fraza 1 (wznosząca)
-        "D5", "E5", "F5", "A5", "G5", "A5", "C5", "D5",
+        "D5", "E5", "F5", "A5", "G5", "A5", "C6", "D6",
         # Fraza 2 (opadająca)
         "E5", "F5", "E5", "C5", "D5"
+    ],
+    # 🎄 FELIZ NAVIDAD - Latynoski klasyk!
+    "feliz_navidad": [
+        # Phrase 1: Fe-liz Na-vi-dad
+        "G", "C5", "B", "C5", "A",
+        # Phrase 2: Fe-liz Na-vi-dad
+        "G", "D5", "C5", "D5", "B",
+        # Phrase 3: Fe-liz Na-vi-dad
+        "G", "C5", "B", "C5", "A",
+        # Phrase 4: Pros-pe-ro A-ño y Fe-li-ci-dad
+        "F", "F", "G", "F", "E", "D", "C",
+    ],
+    # 🎧 AVICII - LEVELS (Classic EDM Hook)
+    "avicii_levels": [
+        "C#", 
+        "C#", "B3", "G#3",
+        "F#3", "E3", "F#3", "G#3",
+        "C#",
+        "C#", "B3", "G#3",
+        "F#3", "E3"
     ],
 }

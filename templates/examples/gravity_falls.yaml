@@ -1,0 +1,28 @@
+audio:
+  sounds_dir: mido/melodies/gravity_falls
+  volume: 1
+description: Gravity Falls mystery theme
+name: gravity_falls_mystery
+output:
+  format: mp4
+  prefix: shorts_gravity_falls
+  quality: high
+overlay:
+  align: center
+  bar_color: '#1a1a1a'
+  bar_height: 120
+  bar_opacity: 0
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 60
+  render_engine: pango_png
+  shadow: true
+  text: Every next ball has extra bounce!\n Better don't blink 👀
+video_format: shorts
+# Usefull emojis: 🌲❔🧢⚠️
+# alarm emoji: 🚨
+#alarm clock emoji: 🕐
+# eyes emoji: 👀

@@ -16,7 +16,7 @@ overlay:
   font: null
   font_file: null
   font_size: 50
-  margin_top: 360
+  margin_top: 160
   padding_x: 120
   render_engine: pango_png
   shadow: true

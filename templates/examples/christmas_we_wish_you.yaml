@@ -15,14 +15,18 @@ overlay:
   color: white
   font: null
   font_file: null
-  font_size: 50
+  font_size: 45
   margin_top: 380
-  padding_x: 120
+  padding_x: 50
   render_engine: pango_png
   shadow: true
-  text: 🎁 Merry... FREEZE! 🎁\n❄️ 3s countdown! ❄️
+  text: 🧨 Each ball has 4 s 🧨\n🕐Will it escape in time?🕐
 video_format: shorts
 # Usefull emojis:  🔔🦌🎅🎄🎵🎶🎵🎶
 # Clock emoji: 🕐
 # Snowflake emoji: ❄️
 # Snowman emoji: ☃️
+# Freeze emoji: 🥶
+# 6 emoji: 6️⃣
+# 7 emoji: 7️⃣
+# firecracker emoji: 🧨

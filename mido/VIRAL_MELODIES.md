@@ -26,6 +26,7 @@ Moduł MIDO zawiera teraz **16 mega popularnych melodii**, które możesz wygene
 | 🕺 | `staying_alive` | Staying Alive (Bee Gees) | Disco hit! |
 | 🎺 | `saints` | When the Saints Go Marching In | Jazzowy standard! |
 | 💖 | `titanic` | My Heart Will Go On (Titanic) | Romantyczny hit! |
+| 🎧 | `avicii_levels` | Levels (Avicii) | EDM Classic (14 notes)! |
 | 👻 | `ghost_intro` | Oryginalny ghost intro | Pierwotny |
 
 ## 🚀 Szybki Start

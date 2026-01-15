@@ -1,0 +1,37 @@
+audio:
+  sounds_dir: mido/melodies/imperial_march
+  volume: 0.8
+description: Epic theme with Imperial March
+name: imperial_march
+output:
+  format: mp4
+  prefix: shorts_imperial_march
+  quality: high
+overlay:
+  align: center
+  bar_color: '#1a1a1a'
+  bar_height: 120
+  bar_opacity: 0
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 120
+  render_engine: pango_png
+  shadow: true
+  text: Each ball has 4 bounces🕳\n 🗡️May the force be with you🗡️!
+video_format: shorts
+# lord vader emoji: 👑
+# death star emoji: 💀
+# stormtrooper emoji: 🤖
+# rebel alliance emoji: 💪
+# jedi emoji: 🌟
+# sith emoji: 🔥
+# force emoji: ⚡
+# light saber emoji: 🔫
+# blaster emoji: 💣
+# droid emoji: 🤖
+# starship emoji: 🚀
+# sword emoji: 🗡️
+# trampoline emoji: 🪺🕳

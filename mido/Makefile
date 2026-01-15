@@ -121,3 +121,34 @@ play-melody:  ## Odtwarza konkretną melodię (użyj: make play-melody MELODY=te
 	fi
 	@echo "🔊 Odtwarzanie melodii: $(MELODY)"
 	python -c "from main import MelodyPlayer; player = MelodyPlayer('$(MELODY)'); player.run()"
+
+midi-analyze:  ## Analizuje plik MIDI i pokazuje tracki (użyj: make midi-analyze MIDI=../midi_files/file.mid)
+	@if [ -z "$(MIDI)" ]; then \
+		echo "❌ Podaj plik MIDI: make midi-analyze MIDI=../midi_files/file.mid"; \
+		exit 1; \
+	fi
+	python midi_import.py analyze --midi "$(MIDI)"
+
+midi-import:  ## Importuje MIDI i generuje WAV nuty (użyj: make midi-import MIDI=../midi_files/file.mid NAME=tokyo_drift TRACK=1 CHANNEL=0 INSTR=81)
+	@if [ -z "$(MIDI)" ] || [ -z "$(NAME)" ]; then \
+		echo "❌ Użycie: make midi-import MIDI=../midi_files/file.mid NAME=nazwa [TRACK=...] [CHANNEL=...] [INSTR=...]"; \
+		exit 1; \
+	fi
+	python midi_import.py import \
+		--midi "$(MIDI)" \
+		--name "$(NAME)" \
+		$(if $(TRACK),--track $(TRACK),) \
+		$(if $(CHANNEL),--channel $(CHANNEL),) \
+		$(if $(INSTR),--instrument $(INSTR),) \
+		--overwrite
+
+midi-mixdown:  ## Renderuje 2+ tracki MIDI do jednego pliku WAV (użyj: make midi-mixdown MIDI=../midi_files/file.mid TRACKS=0,1 OUT=melodies/mix.wav)
+	@if [ -z "$(MIDI)" ] || [ -z "$(TRACKS)" ] || [ -z "$(OUT)" ]; then \
+		echo "❌ Użycie: make midi-mixdown MIDI=../midi_files/file.mid TRACKS=0,1 OUT=melodies/mix.wav"; \
+		exit 1; \
+	fi
+	python midi_import.py mixdown \
+		--midi "$(MIDI)" \
+		--tracks "$(TRACKS)" \
+		--output "$(OUT)" \
+		--overwrite
