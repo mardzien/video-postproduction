@@ -1,0 +1,29 @@
+audio:
+  midi_file: midi_files/Twinkle.mid
+  instrument: 11  # Music Box - lullaby
+  midi_track: 0
+  volume: 1
+description: Twinkle Twinkle Little Star
+name: twinkle
+output:
+  format: mp4
+  prefix: shorts_twinkle
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 300
+  padding_x: 120
+  render_engine: pango_png
+  shadow: true
+  text: Each other ball has +1 s!\n The whole world spins 🌍
+video_format: shorts
+# Usefull emojis:  🔔🦌🎅🎄🎵🎶🎵🎶
+# Clock emoji: 🕐
+# Snowflake emoji: ❄️
+# Snowman emoji: ☃️
+# bounce emoji: 🪺
+# freeze emoji: 🥶

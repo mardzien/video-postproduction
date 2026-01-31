@@ -19,6 +19,7 @@ import ffmpeg  # type: ignore[import-untyped]
 import numpy as np
 
 from .collision_events import CollisionEvent, RecordingInfo, load_events_from_file
+from .midi_renderer import MidiNoteRenderer, MidiRendererError
 
 
 class PostProductionError(Exception):
@@ -35,88 +36,115 @@ class PostProductionMixer:
     """
     Mixer for adding audio in postproduction based on collision events.
     
+    Supports two modes:
+    1. WAV mode (legacy): Load pre-generated WAV files from folder
+    2. MIDI mode (new): Render notes on-demand from MIDI file
+    
     Usage:
+        # WAV mode (backward compatible)
         mixer = PostProductionMixer(sounds_folder="sounds/")
+        
+        # MIDI mode (new)
+        mixer = PostProductionMixer(
+            midi_file="midi_files/mario.mid",
+            midi_instrument=11,
+            midi_track=0
+        )
+        
         output = mixer.process_recording("video.mp4", "events.json")
     """
 
     def __init__(
         self,
-        sounds_folder: str | Path | None = None,
+        midi_file: str | Path,
+        midi_instrument: int,
+        midi_track: int | None = None,
+        midi_channel: int | None = None,
         volume: float = DEFAULT_VOLUME,
         sample_rate: int = DEFAULT_SAMPLE_RATE,
     ) -> None:
         """
-        Initialize the mixer.
+        Initialize the mixer - MIDI mode only.
         
         Args:
-            sounds_folder: Path to folder with WAV collision sounds
+            midi_file: Path to MIDI file
+            midi_instrument: GM instrument 0-127
+            midi_track: Track index in MIDI file (None=auto)
+            midi_channel: MIDI channel 0-15 (None=all)
             volume: Base volume multiplier (0.0-1.0)
             sample_rate: Audio sample rate (default: 48000 Hz)
         """
-        self.sounds_folder = (
-            Path(sounds_folder) if sounds_folder else DEFAULT_SOUNDS_FOLDER
-        )
         self.volume = volume
         self.sample_rate = sample_rate
-
-        # Sound files loaded on init
-        self.collision_sounds: list[Path] = []
-        self.sound_index = 0  # For sequential melodic progression
-
-        self._load_collision_sounds()
-
-    def _load_collision_sounds(self) -> None:
-        """Load available collision sounds from folder."""
-        if not self.sounds_folder.exists():
-            raise PostProductionError(
-                f"Sounds folder not found: {self.sounds_folder}"
+        self.mode = "midi"
+        
+        self.midi_file = Path(midi_file)
+        self.midi_instrument = midi_instrument
+        self.midi_track = midi_track
+        self.midi_channel = midi_channel
+        
+        if not self.midi_file.exists():
+            raise PostProductionError(f"MIDI file not found: {self.midi_file}")
+        
+        print(f"🎹 PostProductionMixer: MIDI mode")
+        print(f"   MIDI file: {self.midi_file}")
+        print(f"   Instrument: {midi_instrument}")
+        print(f"   Track: {midi_track if midi_track is not None else 'auto'}")
+        print(f"   Channel: {midi_channel if midi_channel is not None else 'all'}")
+        
+        # Initialize MIDI renderer
+        try:
+            self.renderer = MidiNoteRenderer(sample_rate=self.sample_rate)
+            
+            # Load notes from MIDI
+            self.midi_notes = self.renderer.load_midi_notes(
+                self.midi_file,
+                track=midi_track,
+                channel=midi_channel,
+                instrument=midi_instrument,
             )
+            
+            self.sound_index = 0  # For sequential note selection
+            
+            print(f"   ✅ Loaded {len(self.midi_notes)} notes from MIDI")
+            
+        except MidiRendererError as e:
+            raise PostProductionError(f"Failed to load MIDI: {e}") from e
 
-        sound_files = sorted(self.sounds_folder.glob("*.wav"))
-
-        if not sound_files:
-            raise PostProductionError(
-                f"No WAV files found in {self.sounds_folder}"
-            )
-
-        self.collision_sounds = sound_files
-        print(f"🎵 Loaded {len(self.collision_sounds)} collision sounds")
-
-    def _select_next_sound(self) -> Path:
-        """Select next sound in sequence for melodic progression."""
-        if not self.collision_sounds:
-            raise PostProductionError("No sounds available!")
-
-        selected = self.collision_sounds[self.sound_index]
-        self.sound_index = (self.sound_index + 1) % len(self.collision_sounds)
+    def _select_next_sound(self) -> int:
+        """
+        Select next MIDI note in sequence for melodic progression.
+        
+        Returns:
+            MIDI note number (0-127)
+        """
+        if not self.midi_notes:
+            raise PostProductionError("No MIDI notes available!")
+        
+        selected = self.midi_notes[self.sound_index]
+        self.sound_index = (self.sound_index + 1) % len(self.midi_notes)
         return selected
 
-    def _load_sound_data(self, sound_file: Path) -> np.ndarray:
-        """Load audio data from WAV file."""
+    def _load_sound_data(self, note_number: int) -> np.ndarray:
+        """
+        Render MIDI note to audio data.
+        
+        Args:
+            note_number: MIDI note number (0-127)
+            
+        Returns:
+            Audio data as float32 stereo array
+        """
         try:
-            import scipy.io.wavfile as wavfile
-
-            sample_rate, sound_array = wavfile.read(str(sound_file))
-
-            # Convert to float32 in range [-1, 1]
-            if sound_array.dtype == np.int16:
-                sound_data = sound_array.astype(np.float32) / 32768.0
-            elif sound_array.dtype == np.int32:
-                sound_data = sound_array.astype(np.float32) / 2147483648.0
-            elif sound_array.dtype == np.uint8:
-                sound_data = (sound_array.astype(np.float32) - 128) / 128.0
-            else:
-                sound_data = sound_array.astype(np.float32)
-
-            # Ensure stereo
-            if sound_data.ndim == 1:
-                sound_data = np.column_stack([sound_data, sound_data])
-
+            sound_data = self.renderer.render_note(
+                note=note_number,
+                instrument=self.midi_instrument,
+                duration=0.4,  # Default duration
+            )
             return sound_data
-
+            
         except Exception as e:
-            print(f"⚠️ Error loading {sound_file}: {e}")
+            print(f"⚠️ Error rendering MIDI note {note_number}: {e}")
             return self._generate_fallback_beep()
 
     def _generate_fallback_beep(self) -> np.ndarray:
@@ -298,9 +326,12 @@ class PostProductionMixer:
         """
         Combine video with audio using FFmpeg.
         
+        If the video has existing audio, it will be mixed with the new audio.
+        If the video has no audio, the new audio will be added directly.
+        
         Args:
-            video_path: Input video file (silent)
-            audio_path: Audio track file
+            video_path: Input video file
+            audio_path: Audio track file (collision sounds/melodies)
             output_path: Output video file
             
         Returns:
@@ -324,20 +355,42 @@ class PostProductionMixer:
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         try:
+            # Check if video has audio stream
+            probe = ffmpeg.probe(str(video_path))
+            has_audio = any(stream['codec_type'] == 'audio' for stream in probe['streams'])
+            
             video_input = ffmpeg.input(str(video_path))
             audio_input = ffmpeg.input(str(audio_path))
 
-            output = ffmpeg.output(
-                video_input,
-                audio_input,
-                str(output_path),
-                vcodec="libx264",
-                acodec="aac",
-                preset="medium",
-                crf="18",
-                pix_fmt="yuv420p",
-                **{"y": None},  # Overwrite output
-            )
+            if has_audio:
+                print("   ℹ️  Video has existing audio - mixing both tracks")
+                # Mix original video audio with new audio
+                mixed_audio = ffmpeg.filter([video_input.audio, audio_input], 'amix', inputs=2, duration='longest')
+                output = ffmpeg.output(
+                    video_input.video,
+                    mixed_audio,
+                    str(output_path),
+                    vcodec="libx264",
+                    acodec="aac",
+                    preset="medium",
+                    crf="18",
+                    pix_fmt="yuv420p",
+                    **{"y": None},  # Overwrite output
+                )
+            else:
+                print("   ℹ️  Video has no audio - adding new audio track")
+                # Simple audio replacement (original behavior)
+                output = ffmpeg.output(
+                    video_input,
+                    audio_input,
+                    str(output_path),
+                    vcodec="libx264",
+                    acodec="aac",
+                    preset="medium",
+                    crf="18",
+                    pix_fmt="yuv420p",
+                    **{"y": None},  # Overwrite output
+                )
 
             cmd = ffmpeg.compile(output, overwrite_output=True)
             print(f"🔧 FFmpeg: {' '.join(cmd)}")
@@ -443,6 +496,8 @@ class PostProductionMixer:
                         print(f"   ⚠️ Could not delete {Path(f).name}: {e}")
 
     def cleanup(self) -> None:
-        """Cleanup resources (placeholder for future use)."""
+        """Cleanup MIDI renderer resources."""
+        if hasattr(self, 'renderer'):
+            self.renderer.cleanup()
         print("🧹 PostProductionMixer cleaned up")
 

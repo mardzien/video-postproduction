@@ -1,0 +1,36 @@
+audio:
+  midi_file: midi_files/The imperial march.mid
+  instrument: 61  # Brass Section - ominous
+  midi_track: 0
+  volume: 0.8
+description: Epic theme with Imperial March
+name: imperial_march
+output:
+  format: mp4
+  prefix: shorts_imperial_march
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 120
+  render_engine: pango_png
+  shadow: true
+  text: Wait for an opportunity\nto escape the ring 🥶
+video_format: shorts
+# lord vader emoji: 👑
+# death star emoji: 💀
+# stormtrooper emoji: 🤖
+# rebel alliance emoji: 💪
+# jedi emoji: 🌟
+# sith emoji: 🔥
+# force emoji: ⚡
+# light saber emoji: 🔫
+# blaster emoji: 💣
+# droid emoji: 🤖
+# starship emoji: 🚀
+# sword emoji: 🗡️
+# trampoline emoji: 🪺🕳

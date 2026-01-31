@@ -1,0 +1,26 @@
+audio:
+  midi_file: midi_files/Better Off Alone.mid
+  instrument: 19  # Church Organ
+  midi_track: 0
+  volume: 0.8
+description: 90s trance classic - Better Off Alone by Alice Deejay
+name: better_off
+output:
+  format: mp4
+  prefix: shorts_better_off
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 60
+  render_engine: pango_png
+  shadow: true
+  text: Start with 1s timer🕐\nEach other ball has extra second
+video_format: shorts
+# Useful emojis: 🎧💜💃🕺✨⚡🔥🎶
+#  piano emoji: 🎹
+# alarm clock emoji: 🕐

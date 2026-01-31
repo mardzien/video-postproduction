@@ -242,9 +242,12 @@ def cmd_shorts(args: argparse.Namespace) -> int:
         # Resolve input files
         inputs = resolve_input(args.input)
         
-        # Initialize mixer
+        # Initialize mixer - MIDI mode only
         mixer = PostProductionMixer(
-            sounds_folder=template.audio.sounds_dir,
+            midi_file=template.audio.midi_file,
+            midi_instrument=template.audio.instrument,
+            midi_track=template.audio.midi_track,
+            midi_channel=template.audio.midi_channel,
             volume=template.audio.volume,
         )
         
@@ -255,10 +258,7 @@ def cmd_shorts(args: argparse.Namespace) -> int:
             font_file=template.overlay.font_file,
             font_size=template.overlay.font_size,
             color=template.overlay.color,
-            bar_color=template.overlay.bar_color,
-            bar_opacity=template.overlay.bar_opacity,
             margin_top=template.overlay.margin_top,
-            bar_height=template.overlay.bar_height,
             padding_x=template.overlay.padding_x,
             align=template.overlay.align,
             shadow=template.overlay.shadow,

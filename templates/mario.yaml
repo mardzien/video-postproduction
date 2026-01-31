@@ -1,0 +1,28 @@
+audio:
+  midi_file: midi_files/Super mario.mid
+  instrument: 11  # Music Box - childlike, toyish
+  midi_track: 0
+  volume: 1
+description: Mario-themed challenge with classic sounds
+name: mario_challenge
+output:
+  format: mp4
+  prefix: shorts_mario
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 50
+  render_engine: pango_png
+  shadow: true
+  text: Each ball has 4s\nWhole world spins 🌍!
+video_format: shorts
+# Usefull emojis:  🎮🎶🎵🎶🎵🎶🎵🎶
+# Clock emoji: 🕐
+# Shroom emoji: 🍄
+# Star emoji: ⭐
+# Comet emoji: ☄️

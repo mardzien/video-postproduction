@@ -1,0 +1,29 @@
+audio:
+  midi_file: midi_files/Pacman.mid
+  instrument: 80  # Lead 1 (Square) - retro gaming
+  midi_track: 0
+  volume: 0.85
+description: Pac-Man arcade classic
+name: pacman_challenge
+output:
+  format: mp4
+  prefix: shorts_pacman
+  quality: high
+overlay:
+  align: center
+  color: black
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 60
+  render_engine: pango_png
+  shadow: true
+  text: 🟡 Wakka Wakka! 👻\nDon't get caught!
+video_format: shorts
+# Useful emojis: 🟡👻🍒🎮⚡🕹️
+# Yellow circle emoji: 🟡
+# Ghost emoji: 👻
+# Cherry emoji: 🍒
+# Joystick emoji: 🕹️
+# Game controller emoji: 🎮

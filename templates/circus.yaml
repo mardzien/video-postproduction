@@ -1,0 +1,27 @@
+audio:
+  midi_file: midi_files/Circus theme.mid
+  instrument: 11  # Music Box - carnival atmosphere
+  midi_track: 0
+  volume: 0.8
+description: Circus carnival theme
+name: circus_challenge
+output:
+  format: mp4
+  prefix: shorts_circus
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 60
+  render_engine: pango_png
+  shadow: true
+  text: 🎪 Circus Challenge! 🎪\nEscape the ring in 4s!
+video_format: shorts
+# Useful emojis: 🎪🎡🎠🤹‍♂️🎭🎨🎈🍿🎯
+# Tent emoji: ⛺
+# Clown emoji: 🤡
+# Juggling emoji: 🤹‍♂️

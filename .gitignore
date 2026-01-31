@@ -37,6 +37,8 @@ recordings/*
 !recordings/.gitkeep
 final_recordings/*
 !final_recordings/.gitkeep
+final_r_old/*
+!final_r_old/.gitkeep
 
 # Temporary files
 temp_audio_*.wav

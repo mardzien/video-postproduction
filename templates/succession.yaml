@@ -1,0 +1,29 @@
+audio:
+  midi_file: midi_files/Succession.mid
+  instrument: 0  # Acoustic Grand Piano - dramatic theme
+  midi_track: 0
+  volume: 0.9
+description: Succession TV series theme
+name: succession_challenge
+output:
+  format: mp4
+  prefix: shorts_succession
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 60
+  render_engine: pango_png
+  shadow: true
+  text: 👑 Power Play Challenge 💼\nEscape or lose everything!
+video_format: shorts
+# Useful emojis: 👑💼💰🏢🎯📈
+# Crown emoji: 👑
+# Briefcase emoji: 💼
+# Money emoji: 💰
+# Office building emoji: 🏢
+# Chart emoji: 📈

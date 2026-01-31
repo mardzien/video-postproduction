@@ -1,0 +1,29 @@
+audio:
+  midi_file: midi_files/GTA San Andreas.mid
+  instrument: 33  # Electric Bass - gangster vibe
+  midi_track: 0
+  volume: 0.85
+description: GTA San Andreas theme
+name: gta_challenge
+output:
+  format: mp4
+  prefix: shorts_gta
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 60
+  render_engine: pango_png
+  shadow: true
+  text: 🎮 Grove Street Challenge 🚗\nWasted if you freeze! 💀
+video_format: shorts
+# Useful emojis: 🎮🚗💰🔫💀🌆🎯
+# Car emoji: 🚗
+# Gun emoji: 🔫
+# Money emoji: 💰
+# City emoji: 🌆
+# Skull emoji: 💀

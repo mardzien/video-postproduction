@@ -33,10 +33,7 @@ class OverlayConfig:
     font_file: str | None = None
     font_size: int = 60
     color: str = "white"
-    bar_color: str = "black"
-    bar_opacity: float = 0.0  # 0 = no bar (transparent)
     margin_top: int = 100
-    bar_height: int = 120
     padding_x: int = 120
     align: str = "center"  # left, center, right
     shadow: bool = True
@@ -257,25 +254,10 @@ def _build_ffmpeg_overlay_cmd(
     dst: str,
     overlay_png: str,
     overlay_y: int,
-    bar_color: str,
-    bar_opacity: float,
     use_vaapi: bool,
 ) -> list[str]:
     """Build FFmpeg command for PNG overlay."""
-    # Get overlay height
-    try:
-        img = Image.open(overlay_png)
-        overlay_h = img.size[1]
-        img.close()
-    except Exception:
-        overlay_h = 120
-
-    if bar_opacity > 0.0:
-        drawbox = f"drawbox=x=0:y={overlay_y}:w=iw:h={overlay_h}:color={bar_color}@{bar_opacity}:t=fill,"
-    else:
-        drawbox = ""
-
-    filters = f"{drawbox}overlay=x=(main_w-overlay_w)/2:y={overlay_y}:shortest=1"
+    filters = f"overlay=x=(main_w-overlay_w)/2:y={overlay_y}:shortest=1"
 
     base = ["ffmpeg", "-y", "-i", src, "-loop", "1", "-i", overlay_png]
 
@@ -320,12 +302,7 @@ def _build_ffmpeg_drawtext_cmd(
     else:
         x_expr = "(w-tw)/2"
 
-    if config.bar_opacity > 0.0:
-        y_expr = f"{config.margin_top} + ({config.bar_height}-th)/2"
-        drawbox = f"drawbox=x=0:y={config.margin_top}:w=iw:h={config.bar_height}:color={config.bar_color}@{config.bar_opacity}:t=fill,"
-    else:
-        y_expr = f"{config.margin_top}"
-        drawbox = ""
+    y_expr = f"{config.margin_top}"
 
     shadow_args = ":shadowcolor=black@0.8:shadowx=2:shadowy=2" if config.shadow else ""
 
@@ -337,7 +314,7 @@ def _build_ffmpeg_drawtext_cmd(
         font_args = f":font='{config.font}'"
 
     drawtext = f"drawtext=text='{text_escaped}'{font_args}:fontcolor={config.color}:fontsize={config.font_size}:x={x_expr}:y={y_expr}{shadow_args}:borderw=0"
-    filters = f"{drawbox}{drawtext}"
+    filters = drawtext
 
     base = ["ffmpeg", "-y", "-i", src]
 
@@ -423,8 +400,6 @@ def process_overlay(
                 str(output_video),
                 png_path,
                 config.margin_top,
-                config.bar_color,
-                config.bar_opacity,
                 use_vaapi,
             )
 
@@ -442,8 +417,6 @@ def process_overlay(
                 str(output_video),
                 png_path,
                 config.margin_top,
-                config.bar_color,
-                config.bar_opacity,
                 use_vaapi,
             )
 

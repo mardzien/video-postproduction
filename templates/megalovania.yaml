@@ -1,0 +1,29 @@
+audio:
+  midi_file: midi_files/Megalovania.mid
+  instrument: 30  # Overdriven Guitar - epic
+  midi_track: 0
+  volume: 1
+description: Sans battle theme challenge
+name: megalovania_challenge
+output:
+  format: mp4
+  prefix: shorts_megalovania
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 55
+  margin_top: 360
+  padding_x: 120
+  render_engine: pango_png
+  shadow: true
+  text: Touch the ellipse\nfreeze forever 🥶
+video_format: shorts
+# Usefull emojis: 💀🦴💙❤️
+# wonder emoji: 🤔
+# analog alarm clock emoji: 🕐
+# tree emoji: 🌲
+# shack emoji: 🛖
+#  game over emoji: 🎮

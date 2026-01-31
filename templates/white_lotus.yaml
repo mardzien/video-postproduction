@@ -1,0 +1,30 @@
+audio:
+  midi_file: midi_files/white lotus.mid
+  instrument: 0  # Acoustic Grand Piano - elegant resort
+  midi_track: 0
+  volume: 0.85
+description: White Lotus TV series theme
+name: white_lotus
+output:
+  format: mp4
+  prefix: shorts_white_lotus
+  quality: high
+overlay:
+  align: center
+  color: black
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 60
+  render_engine: pango_png
+  shadow: true
+  text: 🏝️ White Lotus Challenge 🌺\nParadise or trap?
+video_format: shorts
+# Useful emojis: 🏝️🌺🌴🏖️🥂💎✨
+# Island emoji: 🏝️
+# Hibiscus emoji: 🌺
+# Palm tree emoji: 🌴
+# Beach emoji: 🏖️
+# Champagne emoji: 🥂
+# Diamond emoji: 💎

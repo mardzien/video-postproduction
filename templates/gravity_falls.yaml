@@ -1,0 +1,32 @@
+audio:
+  midi_file: midi_files/Gravity Falls.mid
+  instrument: 19  # Church Organ
+  midi_track: 0
+  volume: 1
+description: Gravity Falls mystery theme
+name: gravity_falls_mystery
+output:
+  format: mp4
+  prefix: shorts_gravity_falls
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 60
+  render_engine: pango_png
+  shadow: true
+  text: 🔄Each ball has +1 second🔄
+# Usefull emojis: 🌲❔🧢⚠️
+# alarm emoji: 🚨
+#alarm clock emoji: 🕐
+# eyes emoji: 👀
+# shack emoji: 🛖
+# violet color emoji: 🟣
+#yellow color emoji: 🟡
+#violet heart emoji: 💜
+#yellow heart emoji: 💛
+# spinning emoji: 🔄

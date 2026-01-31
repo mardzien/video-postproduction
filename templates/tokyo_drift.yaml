@@ -1,0 +1,32 @@
+audio:
+  midi_file: midi_files/Tokyo drift.mid
+  instrument: 40  # Violin (per original template)
+  midi_track: 0
+  volume: 0.7
+description: tokyo_drift theme
+name: tokyo_drift
+output:
+  format: mp4
+  prefix: shorts_tokyo_drift
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 380
+  padding_x: 120
+  render_engine: pango_png
+  shadow: true
+  text: Touch the ring\nInstant freeze🥶!
+video_format: shorts
+# Usefull emojis:  🎮🎶🎵🎶🎵🎶🎵🎶
+# Clock emoji: 🕐
+# Shroom emoji: 🍄
+# Star emoji: ⭐
+# Comet emoji: ☄️
+# fast car emoji: 🏎️
+# all alarm emojis: 🕐
+# piano emoji: 🎹 
+# violin emoji: 🎻

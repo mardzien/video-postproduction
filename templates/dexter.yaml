@@ -1,0 +1,28 @@
+audio:
+  midi_file: midi_files/Dexter Main Theme.mid
+  instrument: 0  # Acoustic Grand Piano - dark atmosphere
+  midi_track: 0
+  volume: 0.9
+description: Dexter TV series dark theme
+name: dexter_challenge
+output:
+  format: mp4
+  prefix: shorts_dexter
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 60
+  render_engine: pango_png
+  shadow: true
+  text: 🔪 Dark Challenge 🌙\nTouch = freeze forever!
+video_format: shorts
+# Useful emojis: 🔪🩸🌙🔴⚫🕵️‍♂️
+# Blood drop emoji: 🩸
+# Knife emoji: 🔪
+# Detective emoji: 🕵️‍♂️
+# Moon emoji: 🌙

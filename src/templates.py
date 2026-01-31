@@ -19,9 +19,19 @@ class TemplateError(Exception):
 
 @dataclass
 class AudioConfig:
-    """Audio mixing configuration."""
-    sounds_dir: str
-    volume: float = 0.75
+    """Audio mixing configuration - MIDI only."""
+    midi_file: str
+    instrument: int
+    midi_track: int | None = None
+    midi_channel: int | None = None
+    volume: float = 1.0
+    
+    def __post_init__(self):
+        """Validate configuration."""
+        if not self.midi_file:
+            raise ValueError("midi_file is required")
+        if self.instrument is None:
+            raise ValueError("instrument is required")
 
 
 @dataclass
@@ -31,14 +41,11 @@ class OverlayTemplateConfig:
     font_size: int = 75
     color: str = "white"
     margin_top: int = 120
-    bar_opacity: float = 0.2
-    bar_color: str = "black"
     shadow: bool = True
     render_engine: str = "pango_png"
     align: str = "center"
     font: str | None = None
     font_file: str | None = None
-    bar_height: int = 120
     padding_x: int = 120
 
 
@@ -63,10 +70,15 @@ class ShortsTemplate:
     @classmethod
     def from_dict(cls, data: dict[str, Any]) -> ShortsTemplate:
         """Create template from dictionary."""
+        # Handle audio config with defaults for backward compatibility
+        audio_data = data.get("audio", {})
+        if not audio_data:
+            raise ValueError("audio configuration is required")
+        
         return cls(
             name=data["name"],
             description=data.get("description", ""),
-            audio=AudioConfig(**data.get("audio", {})),
+            audio=AudioConfig(**audio_data),
             overlay=OverlayTemplateConfig(**data.get("overlay", {})),
             output=OutputConfig(**data.get("output", {})),
             video_format=data.get("video_format", "shorts"),
@@ -112,15 +124,10 @@ class TemplateManager:
 
     def __init__(self, templates_dir: str | Path = "templates"):
         self.templates_dir = Path(templates_dir)
-        self.examples_dir = self.templates_dir / "examples"
 
     def load_template(self, name: str) -> ShortsTemplate:
         """
-        Load template by name.
-        
-        Searches in:
-        1. templates/examples/{name}.yaml
-        2. templates/{name}.yaml
+        Load template by name from templates/ directory.
         
         Args:
             name: Template name (without .yaml extension)
@@ -131,20 +138,14 @@ class TemplateManager:
         Raises:
             TemplateError: If template not found or invalid
         """
-        # Try examples directory first
-        candidates = [
-            self.examples_dir / f"{name}.yaml",
-            self.templates_dir / f"{name}.yaml",
-        ]
+        template_path = self.templates_dir / f"{name}.yaml"
         
-        for path in candidates:
-            if path.exists():
-                return self._load_from_file(path)
+        if not template_path.exists():
+            raise TemplateError(
+                f"Template '{name}' not found: {template_path}"
+            )
         
-        raise TemplateError(
-            f"Template '{name}' not found. Searched:\n" +
-            "\n".join(f"  - {p}" for p in candidates)
-        )
+        return self._load_from_file(template_path)
 
     def _load_from_file(self, path: Path) -> ShortsTemplate:
         """Load template from YAML file."""
@@ -194,25 +195,15 @@ class TemplateManager:
         """
         templates: list[tuple[str, str]] = []
         
-        # Scan examples directory
-        if self.examples_dir.exists():
-            for path in sorted(self.examples_dir.glob("*.yaml")):
+        # Scan templates directory
+        if self.templates_dir.exists():
+            for path in sorted(self.templates_dir.glob("*.yaml")):
                 try:
                     template = self._load_from_file(path)
                     templates.append((template.name, template.description))
                 except Exception:
                     # Skip invalid templates
                     pass
-        
-        # Scan main templates directory
-        for path in sorted(self.templates_dir.glob("*.yaml")):
-            if path.parent == self.examples_dir:
-                continue  # Already processed
-            try:
-                template = self._load_from_file(path)
-                templates.append((template.name, template.description))
-            except Exception:
-                pass
         
         return templates
 

@@ -1,0 +1,30 @@
+audio:
+  midi_file: midi_files/Tetris.mid
+  instrument: 80  # Lead 1 (Square) - retro gaming
+  midi_track: 0
+  volume: 0.85
+description: Tetris (Korobeiniki) - Russian folk tune
+name: tetris_challenge
+output:
+  format: mp4
+  prefix: shorts_tetris
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 60
+  render_engine: pango_png
+  shadow: true
+  text: 🟦 Tetris Challenge! 🎮\nDon't let the pieces freeze!
+video_format: shorts
+# Useful emojis: 🟦🟨🟩🟪🟥🎮🕹️
+# Blue square emoji: 🟦
+# Yellow square emoji: 🟨
+# Green square emoji: 🟩
+# Purple square emoji: 🟪
+# Red square emoji: 🟥
+# Game controller emoji: 🎮

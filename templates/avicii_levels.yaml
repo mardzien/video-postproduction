@@ -1,0 +1,28 @@
+audio:
+  midi_file: midi_files/levels - avici.mid
+  instrument: 81  # Lead 2 (Sawtooth) - EDM synth
+  midi_track: 0
+  volume: 1
+description: EDM-themed short with Avicii - Levels
+name: avicii_levels
+output:
+  format: mp4
+  prefix: shorts_avicii
+  quality: high
+overlay:
+  align: center
+  color: white
+  font: null
+  font_file: null
+  font_size: 50
+  margin_top: 360
+  padding_x: 50
+  render_engine: pango_png
+  shadow: true
+  text: 4s or freeze forever 🥶/nCan you guess the song?
+video_format: shorts
+# Useful emojis: 🎧⚡🔥🕺💃✨
+# freeze emoji: 🥶
+# piano emoji: 🎹 
+# wondering emoji: 🤔
+# clock emoji: 🕐
