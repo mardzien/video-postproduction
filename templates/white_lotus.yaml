@@ -19,7 +19,7 @@ overlay:
   padding_x: 60
   render_engine: pango_png
   shadow: true
-  text: 🏝️ White Lotus Challenge 🌺\nParadise or trap?
+  text: 🌺Paradise or trap?🏝️\n🥶5s or freeze forever!❄️
 video_format: shorts
 # Useful emojis: 🏝️🌺🌴🏖️🥂💎✨
 # Island emoji: 🏝️
@@ -28,3 +28,5 @@ video_format: shorts
 # Beach emoji: 🏖️
 # Champagne emoji: 🥂
 # Diamond emoji: 💎
+# Freeze emoji: 🥶
+# Snowflake emoji: ❄️

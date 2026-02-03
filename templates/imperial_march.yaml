@@ -2,7 +2,7 @@ audio:
   midi_file: midi_files/The imperial march.mid
   instrument: 61  # Brass Section - ominous
   midi_track: 0
-  volume: 0.8
+  volume: 1
 description: Epic theme with Imperial March
 name: imperial_march
 output:

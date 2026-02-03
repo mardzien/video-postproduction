@@ -19,7 +19,7 @@ overlay:
   padding_x: 60
   render_engine: pango_png
   shadow: true
-  text: 👑 Power Play Challenge 💼\nEscape or lose everything!
+  text: Escape in 5s!\n👑Can you guess the song?💼
 video_format: shorts
 # Useful emojis: 👑💼💰🏢🎯📈
 # Crown emoji: 👑

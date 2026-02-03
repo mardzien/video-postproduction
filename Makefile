@@ -22,13 +22,38 @@ RECORDINGS := recordings
 FINAL := final_recordings
 SOUNDS := sounds
 
+# Aliases for convenience
+I ?= $(INPUT)
+T ?= $(TEMPLATE)
+
 # Default values
-INPUT ?=
+INPUT ?= $(I)
+TEMPLATE ?= $(T)
 TEXT ?=
 OUTPUT ?=
 SOUNDS_DIR ?= $(SOUNDS)
 VOLUME ?= 0.7
 CLEANUP ?=
+
+# Process INPUT: add recordings/ prefix and .webm extension if needed
+ifdef INPUT
+  # Check if INPUT already has recordings/ prefix
+  ifeq (,$(findstring recordings/,$(INPUT)))
+    # Check if INPUT has any extension
+    ifeq (,$(suffix $(INPUT)))
+      # No extension - add recordings/ and .webm
+      PROCESSED_INPUT := $(RECORDINGS)/$(INPUT).webm
+    else
+      # Has extension - just add recordings/
+      PROCESSED_INPUT := $(RECORDINGS)/$(INPUT)
+    endif
+  else
+    # Already has recordings/ prefix
+    PROCESSED_INPUT := $(INPUT)
+  endif
+else
+  PROCESSED_INPUT :=
+endif
 
 # Mido defaults
 MELODY ?= imperial_march
@@ -102,10 +127,10 @@ full: postprocess
 
 .PHONY: shorts
 shorts: env
-	@if [ -z "$(INPUT)" ]; then echo "❌ ERROR: INPUT required. Usage: make shorts INPUT=video.mp4 TEMPLATE=christmas"; exit 1; fi
-	@if [ -z "$(TEMPLATE)" ]; then echo "❌ ERROR: TEMPLATE required. Usage: make shorts INPUT=video.mp4 TEMPLATE=christmas"; exit 1; fi
+	@if [ -z "$(INPUT)" ] && [ -z "$(I)" ]; then echo "❌ ERROR: INPUT (or I) required. Usage: make shorts I=video T=gta"; exit 1; fi
+	@if [ -z "$(TEMPLATE)" ] && [ -z "$(T)" ]; then echo "❌ ERROR: TEMPLATE (or T) required. Usage: make shorts I=video T=gta"; exit 1; fi
 	$(PY) -m src.cli shorts \
-		--input "$(INPUT)" \
+		--input "$(PROCESSED_INPUT)" \
 		--template "$(TEMPLATE)" \
 		$(if $(OUTPUT),--output "$(OUTPUT)",) \
 		$(if $(AUTO_NUMBER),--auto-number,) \
@@ -193,11 +218,11 @@ help:
 	@echo "                       - Full postproduction (audio + overlay)"
 	@echo ""
 	@echo "Shorts (template-based):"
-	@echo "  make shorts INPUT=video.mp4 TEMPLATE=christmas"
-	@echo "                       - Template-based shorts production"
+	@echo "  make shorts I=Batch_2026-01-31_15-16-06 T=gta"
+	@echo "                       - Short syntax (auto-adds recordings/ and .webm)"
+	@echo "  make shorts INPUT=recordings/video.webm TEMPLATE=mario"
+	@echo "                       - Full syntax for template-based production"
 	@echo "  make list-templates  - Show available templates"
-	@echo "  make create-templates"
-	@echo "                       - Create example templates"
 	@echo ""
 	@echo "Mido (melody generator):"
 	@echo "  make generate-melody MELODY=imperial_march"
@@ -210,10 +235,12 @@ help:
 	@echo "                       - Add overlay to all in final_recordings/"
 	@echo ""
 	@echo "Options:"
-	@echo "  INPUT=path           - Input video file or glob pattern"
+	@echo "  I=name               - Alias for INPUT (short: I=Batch_2026-01-31)"
+	@echo "  T=name               - Alias for TEMPLATE (short: T=gta)"
+	@echo "  INPUT=path           - Input video file (auto-adds recordings/ and .webm)"
+	@echo "  TEMPLATE=name        - Template name from templates/"
 	@echo "  OUTPUT=path          - Output file path"
 	@echo "  TEXT=\"text\"          - Overlay text (supports emoji)"
-	@echo "  SOUNDS_DIR=path      - Directory with WAV sounds"
 	@echo "  VOLUME=0.7           - Audio volume (0.0-1.0)"
 	@echo "  CLEANUP=1            - Delete source files after"
 

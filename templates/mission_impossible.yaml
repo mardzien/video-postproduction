@@ -1,8 +1,8 @@
 audio:
   midi_file: midi_files/Mission impossible.mid
   instrument: 0  # Acoustic Grand Piano - spy action
-  midi_track: 0
-  volume: 0.9
+  midi_track: 1
+  volume: 1
 description: Mission Impossible spy theme
 name: mission_impossible
 output:
@@ -19,7 +19,7 @@ overlay:
   padding_x: 60
   render_engine: pango_png
   shadow: true
-  text: 🕵️ Mission: Escape! 🎯\nSelf-destruct in 4s! 💥
+  text: 🕵️ Mission - Escape in 5s! 🎯\nCan you guess the song?🎵
 video_format: shorts
 # Useful emojis: 🕵️‍♂️🎯💥🔒🔓⏱️🎬
 # Spy emoji: 🕵️‍♂️

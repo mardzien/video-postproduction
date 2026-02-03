@@ -1,8 +1,8 @@
 audio:
   midi_file: midi_files/Circus theme.mid
   instrument: 11  # Music Box - carnival atmosphere
-  midi_track: 0
-  volume: 0.8
+  midi_track: 1
+  volume: 1
 description: Circus carnival theme
 name: circus_challenge
 output:
@@ -19,7 +19,7 @@ overlay:
   padding_x: 60
   render_engine: pango_png
   shadow: true
-  text: 🎪 Circus Challenge! 🎪\nEscape the ring in 4s!
+  text: Escape the ring in 5s!\n🎪Can you guess the song?🤡
 video_format: shorts
 # Useful emojis: 🎪🎡🎠🤹‍♂️🎭🎨🎈🍿🎯
 # Tent emoji: ⛺

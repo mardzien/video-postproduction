@@ -2,7 +2,7 @@ audio:
   midi_file: midi_files/Dexter Main Theme.mid
   instrument: 0  # Acoustic Grand Piano - dark atmosphere
   midi_track: 0
-  volume: 0.9
+  volume: 1
 description: Dexter TV series dark theme
 name: dexter_challenge
 output:
@@ -19,7 +19,7 @@ overlay:
   padding_x: 60
   render_engine: pango_png
   shadow: true
-  text: 🔪 Dark Challenge 🌙\nTouch = freeze forever!
+  text: Escape the ring in 5s!\n🔪Can you guess the song?🩸
 video_format: shorts
 # Useful emojis: 🔪🩸🌙🔴⚫🕵️‍♂️
 # Blood drop emoji: 🩸
