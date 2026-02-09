@@ -1,7 +1,7 @@
 audio:
   midi_file: midi_files/Super mario.mid
   instrument: 11  # Music Box - childlike, toyish
-  midi_track: 0
+  midi_track: 1
   volume: 1
 description: Mario-themed challenge with classic sounds
 name: mario_challenge
@@ -19,7 +19,7 @@ overlay:
   padding_x: 50
   render_engine: pango_png
   shadow: true
-  text: Each ball has 4s\nWhole world spins 🌍!
+  text: Escape in 5 jumps!\n🎮Can you guess the song?🍄
 video_format: shorts
 # Usefull emojis:  🎮🎶🎵🎶🎵🎶🎵🎶
 # Clock emoji: 🕐

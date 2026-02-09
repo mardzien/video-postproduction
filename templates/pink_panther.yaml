@@ -1,8 +1,8 @@
 audio:
   midi_file: midi_files/Pink panther.mid
   instrument: 65  # Alto Sax - jazzy mystery
-  midi_track: 0
-  volume: 0.85
+  midi_track: 1
+  volume: 1
 description: Pink Panther jazzy mystery theme
 name: pink_panther
 output:
@@ -19,7 +19,7 @@ overlay:
   padding_x: 60
   render_engine: pango_png
   shadow: true
-  text: 🐾 Pink Panther Mystery 🎷\nStealthy escape challenge!
+  text: Balls freeze after 5 bounces!\nStealthy escape challenge!🎷
 video_format: shorts
 # Useful emojis: 🐾🎷🕵️‍♂️💎🌙⭐
 # Paw prints emoji: 🐾

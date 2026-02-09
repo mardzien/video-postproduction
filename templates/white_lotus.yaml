@@ -19,7 +19,7 @@ overlay:
   padding_x: 60
   render_engine: pango_png
   shadow: true
-  text: 🌺Paradise or trap?🏝️\n🥶5s or freeze forever!❄️
+  text: Each ball bas 5 bounces!
 video_format: shorts
 # Useful emojis: 🏝️🌺🌴🏖️🥂💎✨
 # Island emoji: 🏝️

@@ -19,7 +19,7 @@ overlay:
   padding_x: 60
   render_engine: pango_png
   shadow: true
-  text: Escape in 5s!\n👑Can you guess the song?💼
+  text: Escape in 5 bounces!\n💰Can you guess the song?💼
 video_format: shorts
 # Useful emojis: 👑💼💰🏢🎯📈
 # Crown emoji: 👑

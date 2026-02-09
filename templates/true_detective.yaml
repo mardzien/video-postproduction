@@ -2,7 +2,7 @@ audio:
   midi_file: midi_files/True Detective.mid
   instrument: 25  # Steel String Guitar - dark atmospheric
   midi_track: 0
-  volume: 0.9
+  volume: 1
 description: True Detective dark mystery theme
 name: true_detective
 output:
@@ -19,7 +19,7 @@ overlay:
   padding_x: 60
   render_engine: pango_png
   shadow: true
-  text: 🕵️ Dark Mystery Challenge 🌙\nTime is a flat circle...
+  text: Freeze after 5 bounces!\n🕵️Can you guess the song?🎭
 video_format: shorts
 # Useful emojis: 🕵️‍♂️🌙🔍💀🌲🎭
 # Detective emoji: 🕵️‍♂️

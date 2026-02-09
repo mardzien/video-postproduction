@@ -1,8 +1,8 @@
 audio:
   midi_file: midi_files/Pacman.mid
   instrument: 80  # Lead 1 (Square) - retro gaming
-  midi_track: 0
-  volume: 0.85
+  midi_track: 1
+  volume: 1
 description: Pac-Man arcade classic
 name: pacman_challenge
 output:
@@ -19,7 +19,7 @@ overlay:
   padding_x: 60
   render_engine: pango_png
   shadow: true
-  text: 🟡 Wakka Wakka! 👻\nDon't get caught!
+  text: 5s or freeze!\n🟡Don't get caught!🎮
 video_format: shorts
 # Useful emojis: 🟡👻🍒🎮⚡🕹️
 # Yellow circle emoji: 🟡
